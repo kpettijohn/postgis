@@ -55,5 +55,12 @@ The image will create a database template when run called `template_postgis`. Wh
 ```
 docker exec server-name psql -U postgres -c "CREATE DATABASE my_db TEMPLATE template_postgis;"
 
-
+docker exec server-name psql -U postgres -d my_db -c "\dx"
+                                         List of installed extensions
+       Name       | Version |   Schema   |                             Description
+------------------+---------+------------+---------------------------------------------------------------------
+ plpgsql          | 1.0     | pg_catalog | PL/pgSQL procedural language
+ postgis          | 2.1.7   | public     | PostGIS geometry, geography, and raster spatial types and functions
+ postgis_topology | 2.1.7   | topology   | PostGIS topology spatial types and functions
+(3 rows)
 ```
