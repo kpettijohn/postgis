@@ -6,7 +6,7 @@ PostGIS is a spatial database extender for PostgreSQL object-relational database
 
 ## How to use this image
 
-The `postgis` image is build using the official `postgres` docker image, which explains some basic usage of the `postgres` image.
+The `postgis` image is built using the official `postgres` docker image, which explains some basic usage of the `postgres` image.
 
 https://registry.hub.docker.com/_/postgres/
 
@@ -54,4 +54,6 @@ The image will create a database template when run called `template_postgis`. Wh
 
 ```
 docker exec server-name psql -U postgres -c "CREATE DATABASE my_db TEMPLATE template_postgis;"
+
+
 ```

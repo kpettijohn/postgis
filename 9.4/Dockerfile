@@ -2,8 +2,8 @@ FROM postgres:9.4
 
 ENV POSTGIS_VERSION 2.1.7
 
-RUN buildDeps=' \
-  postgresql-server-dev-9.4 \
+RUN buildDeps=" \
+  postgresql-server-dev-${PG_MAJOR} \
   libgeos-dev \
   libproj-dev \ 
   libgdal-dev \
@@ -11,7 +11,7 @@ RUN buildDeps=' \
   make \
   curl \
   gcc \
-  '; \
+  "; \
      apt-get update \
   && apt-get install -y $buildDeps libxml2 --no-install-recommends \
   && curl -o /tmp/postgis-$POSTGIS_VERSION.tar.gz -s \ 
