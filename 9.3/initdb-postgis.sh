@@ -2,7 +2,7 @@
 
 set -x
 
-WAIT=${WAIT:-2}
+WAIT=${WAIT:-3}
 
 gosu postgres postgres -E -c listen_addresses='' &
 
@@ -16,4 +16,4 @@ CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
 EOSQL
 
-gosu postgres /usr/lib/postgresql/9.3/bin/pg_ctl stop -t $WAIT
+gosu postgres /usr/lib/postgresql/$PG_MAJOR/bin/pg_ctl stop
