@@ -1,19 +1,19 @@
 # PostGIS 
 
+[![dockeri.co](http://dockeri.co/image/kpettijohn/postgis)](https://registry.hub.docker.com/u/kpettijohn/postgis)
+
 ## What is PostGIS?
 
 PostGIS is a spatial database extender for PostgreSQL object-relational database. It adds support for geographic objects allowing location queries to be run in SQL.
 
 ## How to use this image
 
-The `postgis` image is built using the official `postgres` docker image, which explains some basic usage of the `postgres` image.
-
-https://registry.hub.docker.com/_/postgres/
+The `postgis` image is built using the official [postgres](https://registry.hub.docker.com/_/postgres/) Docker image.
 
 Starting a `postgis` container.
 
 ```
-docker run --name server-name -p "5432:5432" -d postgis
+docker run --name postgis -p "5432:5432" -d kpettijohn/postgis:9.4
 ```
 
 Once the server is running you can connect to it directly using `psql`.
@@ -36,7 +36,7 @@ psql -h `docker-machine ip` -U postgres -l
 You can also use `docker exec`:
 
 ```
-docker exec server-name psql -U postgres -l
+docker exec postgis psql -U postgres -l
 
                                     List of databases
        Name       |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges
@@ -50,12 +50,12 @@ docker exec server-name psql -U postgres -l
 (4 rows)
 ```
 
-The image will create a database template when run called `template_postgis`. When creating a database your can use the `template_postgis` template as it already has the extensions `postgis` and `postgis_topology` pre-installed. 
+On run the container will create a database template called `template_postgis`. You can then use the `template_postgis` template to create your databases with the extensions `postgis` and `postgis_topology` pre-installed.
 
 ```
-docker exec server-name psql -U postgres -c "CREATE DATABASE my_db TEMPLATE template_postgis;"
+docker exec postgis psql -U postgres -c "CREATE DATABASE my_postgis_db TEMPLATE template_postgis;"
 
-docker exec server-name psql -U postgres -d my_db -c "\dx"
+docker exec postgis psql -U postgres -d my_postgis_db -c "\dx"
                                          List of installed extensions
        Name       | Version |   Schema   |                             Description
 ------------------+---------+------------+---------------------------------------------------------------------
@@ -63,4 +63,12 @@ docker exec server-name psql -U postgres -d my_db -c "\dx"
  postgis          | 2.1.7   | public     | PostGIS geometry, geography, and raster spatial types and functions
  postgis_topology | 2.1.7   | topology   | PostGIS topology spatial types and functions
 (3 rows)
+```
+
+**Note**
+
+If the `postgis` container exits on or shortly after running you may need to set a higher wait time to let the server start.
+
+```
+docker run --name postgis -p "5432:5432" -e "WAIT=5" -d kpettijohn/postgis:9.4
 ```
