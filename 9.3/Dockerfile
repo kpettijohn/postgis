@@ -29,9 +29,9 @@ RUN buildDeps=" \
   && rm -rf /var/lib/apt/lists/*
 
 RUN postgisDeps=' \
-  libgdal1 \
+  libgdal1h \
   libproj0 \
-  libgeos-3.3.3 \
+  libgeos-3.4.2 \
   libjson0 \
   '; \
     apt-get update \
